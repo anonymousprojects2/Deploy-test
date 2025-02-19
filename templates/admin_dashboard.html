@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - ATTENDMAX</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/admin_dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo-container">
+                <img src="/static/images/logo.png" alt="ATTENDMAX Logo" id="logo">
+                <span class="brand-name">ATTENDMAX</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-section="qr-generator">
+                    <span class="icon">🔄</span>
+                    QR Generator
+                </a>
+                <a href="#" class="nav-item" data-section="attendance-records">
+                    <span class="icon">📊</span>
+                    Attendance Records
+                </a>
+                <a href="#" class="nav-item" data-section="manual-attendance">
+                    <span class="icon">✏️</span>
+                    Manual Attendance
+                </a>
+                <a href="/logout" class="nav-item logout">
+                    <span class="icon">🚪</span>
+                    Logout
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="dashboard-header">
+                <h1>Admin Dashboard</h1>
+                <div class="user-info">
+                    <span class="user-email">{{ session['email'] }}</span>
+                </div>
+            </header>
+
+            <!-- QR Generator Section -->
+            <section id="qr-generator" class="dashboard-section active">
+                <div class="section-header">
+                    <h2>Generate QR Code</h2>
+                </div>
+                <div class="qr-controls">
+                    <div class="control-group">
+                        <label for="department">Department</label>
+                        <select id="department" required>
+                            <option value="">Select Department</option>
+                            <option value="AIDS">AIDS</option>
+                            <option value="CSE">CSE</option>
+                            <option value="CY">CY</option>
+                            <option value="AIML">AIML</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label for="year">Year</label>
+                        <select id="year" required>
+                            <option value="">Select Year</option>
+                            <option value="FY">FY</option>
+                            <option value="SY">SY</option>
+                            <option value="TY">TY</option>
+                            <option value="Final Year">Final Year</option>
+                        </select>
+                    </div>
+                    <button id="generateQR" class="generate-btn">Generate QR Code</button>
+                </div>
+                <div class="qr-display">
+                    <div id="qrCode" class="qr-code">
+                        <!-- QR code will be displayed here -->
+                    </div>
+                    <div class="qr-timer">
+                        <span>Next update in: </span>
+                        <span id="timer">15</span>
+                        <span> seconds</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Attendance Records Section -->
+            <section id="attendance-records" class="dashboard-section">
+                <div class="section-header">
+                    <h2>Attendance Records</h2>
+                    <button id="exportExcel" class="export-btn">Export to Excel</button>
+                </div>
+                <div class="attendance-filters">
+                    <input type="date" id="dateFilter" class="filter">
+                    <select id="deptFilter" class="filter">
+                        <option value="">All Departments</option>
+                        <option value="AIDS">AIDS</option>
+                        <option value="CSE">CSE</option>
+                        <option value="CY">CY</option>
+                        <option value="AIML">AIML</option>
+                    </select>
+                    <select id="yearFilter" class="filter">
+                        <option value="">All Years</option>
+                        <option value="FY">FY</option>
+                        <option value="SY">SY</option>
+                        <option value="TY">TY</option>
+                        <option value="Final Year">Final Year</option>
+                    </select>
+                </div>
+                <div class="attendance-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Student Email</th>
+                                <th>Department</th>
+                                <th>Year</th>
+                                <th>Date & Time</th>
+                            </tr>
+                        </thead>
+                        <tbody id="attendanceData">
+                            <!-- Attendance data will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Manual Attendance Section -->
+            <section id="manual-attendance" class="dashboard-section">
+                <div class="section-header">
+                    <h2>Manual Attendance</h2>
+                </div>
+                <div class="manual-attendance-form">
+                    <div class="form-group">
+                        <label for="studentEmail">Student Email</label>
+                        <input type="email" id="studentEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="manualDepartment">Department</label>
+                        <select id="manualDepartment" required>
+                            <option value="">Select Department</option>
+                            <option value="AIDS">AIDS</option>
+                            <option value="CSE">CSE</option>
+                            <option value="CY">CY</option>
+                            <option value="AIML">AIML</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="manualYear">Year</label>
+                        <select id="manualYear" required>
+                            <option value="">Select Year</option>
+                            <option value="FY">FY</option>
+                            <option value="SY">SY</option>
+                            <option value="TY">TY</option>
+                            <option value="Final Year">Final Year</option>
+                        </select>
+                    </div>
+                    <button id="markAttendance" class="mark-btn">Mark Attendance</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="/static/js/admin_dashboard.js"></script>
+</body>
+</html>

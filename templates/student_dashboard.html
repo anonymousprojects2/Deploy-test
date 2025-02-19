@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - ATTENDMAX</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/student_dashboard.css') }}">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo-container">
+                <img src="/static/images/logo.png" alt="ATTENDMAX Logo" id="logo">
+                <span class="brand-name">ATTENDMAX</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-section="scanner">
+                    <span class="icon">📷</span>
+                    QR Scanner
+                </a>
+                <a href="#" class="nav-item" data-section="attendance-history">
+                    <span class="icon">📊</span>
+                    Attendance History
+                </a>
+                <a href="/logout" class="nav-item logout">
+                    <span class="icon">🚪</span>
+                    Logout
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="dashboard-header">
+                <h1>Student Dashboard</h1>
+                <div class="user-info">
+                    <span class="user-email">{{ session['email'] }}</span>
+                </div>
+            </header>
+
+            <!-- QR Scanner Section -->
+            <section id="scanner" class="dashboard-section active">
+                <div class="section-header">
+                    <h2>Scan QR Code</h2>
+                </div>
+                <div class="scanner-container">
+                    <div class="video-container">
+                        <video id="qr-video" playsinline></video>
+                        <div class="scan-region-highlight"></div>
+                        <div class="scan-region-highlight-svg"></div>
+                    </div>
+                    <div class="scanner-controls">
+                        <button id="startScan" class="control-btn">
+                            <span class="icon">📷</span> Start Scanner
+                        </button>
+                        <button id="stopScan" class="control-btn" disabled>
+                            <span class="icon">⏹</span> Stop Scanner
+                        </button>
+                    </div>
+                    <div id="scanMessage" class="scan-message"></div>
+                </div>
+            </section>
+
+            <!-- Attendance History Section -->
+            <section id="attendance-history" class="dashboard-section">
+                <div class="section-header">
+                    <h2>Your Attendance History</h2>
+                </div>
+                <div class="attendance-stats">
+                    <div class="stat-card">
+                        <h3>Total Classes</h3>
+                        <span id="totalClasses">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Classes Attended</h3>
+                        <span id="classesAttended">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Attendance Percentage</h3>
+                        <span id="attendancePercentage">0%</span>
+                    </div>
+                </div>
+                <div class="attendance-filters">
+                    <input type="month" id="monthFilter" class="filter">
+                </div>
+                <div class="attendance-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Department</th>
+                                <th>Year</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="attendanceHistory">
+                            <!-- Attendance history will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="https://unpkg.com/@zxing/library@latest"></script>
+    <script src="/static/js/student_dashboard.js"></script>
+</body>
+</html>
